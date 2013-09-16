@@ -108,21 +108,17 @@ $S \leftarrow S + T[k]$ \\
 \Entree{T, k, l}
 \Sortie{Sous-séquence maximale}
 \Deb{
-
-\lSi{$l-k = 1$}{\Retour{$T[k]$}} \\
+\lSi{$l-k = 1$}{\Retour{$T[k]$}}
 \lSi{$l-k = 2$}{\Retour{max\{$T[k]$, $T[k+1]$, $T[k]+T[k+1]$\}}}
-
 $j \leftarrow \frac{l - k}{2}$ \\
 $S_1 \leftarrow Diviser\_pour\_regner (T, k, k+j-1)$ \\
 $S_2 \leftarrow Diviser\_pour\_regner (T, k+j+1, l)$ \\
-$S_3 \leftarrow -\infty$ \\
-$S_4 \leftarrow -\infty$ \\
-$S_{tmp} \leftarrow T[j]$ \\
+$S_3 \leftarrow S_{tmp} \leftarrow T[j]$ \\
 \Pour{i variant de j-1 à k descendant}{
 $S_{tmp} \leftarrow S_{tmp} + T[i]$ \\
 \Si{$S_{tmp} > S_3$}{$S_3 \leftarrow S_{tmp}$}
 }
-$S_{tmp} \leftarrow T[j]$ \\
+$S_4 \leftarrow S_{tmp} \leftarrow T[j]$ \\
 \Pour{i variant de j+1 à l montant}{
 $S_{tmp} \leftarrow S_{tmp} + T[i]$ \\
 \Si{$S_{tmp} > S_3$}{$S_4 \leftarrow S_{tmp}$}
@@ -134,6 +130,7 @@ $S_0 \leftarrow S_3 + S_4 - T[j]$ \\
 \end{algorithm}
 \paragraph{Complexité}
 \[O(n \log{n})\]
+
 
 \subsection{Algorithme incrémental}
 
