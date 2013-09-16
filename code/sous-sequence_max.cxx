@@ -55,7 +55,7 @@ namespace {
         sum_4 = numeric_limits<int>::min();
 
         // sous-sequence contenant le pivot (a gauche)
-        sum_tmp = T[j];
+        sum_3 = sum_tmp = T[j];
         for (int i(j-1); i >= k; --i) {
             sum_tmp = sum_tmp + T[i];
             if (sum_tmp > sum_3)
@@ -63,7 +63,7 @@ namespace {
         }
 
         // sous-sequence contenant le pivot (a droite)
-        sum_tmp = T[j];
+        sum_4 = sum_tmp = T[j];
         for (int i(j+1); i < l; ++i) {
             sum_tmp = sum_tmp + T[i];
             if (sum_tmp > sum_4)
