@@ -31,42 +31,44 @@ namespace algo {
         return max_sum;
     }
 
+    int * tab;
     int algo_div(int * T, unsigned n) {
-        return algo_div_impl(T, 0, n);
+        tab = T;
+        return algo_div_impl(0, n);
     }
 
-    int algo_div_impl(int * T, int k, int l) {
+    int algo_div_impl(int k, int l) {
         int sz = l - k;
         if (sz == 1) {
-            return T[k];
+            return tab[k];
         }
         else if (sz == 2) {
-            return max(max(T[k], T[k+1]), T[k] + T[k+1]);
+            return max(max(tab[k], tab[k+1]), tab[k] + tab[k+1]);
         }
 
         int sum_0, sum_1, sum_2, sum_3, sum_4, sum_tmp;
         int j = sz / 2;
 
-        sum_1 = algo_div_impl(T, k, k+j);
-        sum_2 = algo_div_impl(T, k+j+1, l);
+        sum_1 = algo_div_impl(k, k+j);
+        sum_2 = algo_div_impl(k+j+1, l);
 
-        // sous-sequence terminant par le pivot (T[j])
-        sum_3 = sum_tmp = T[j];
+        // sous-sequence terminant par le pivot (tab[j])
+        sum_3 = sum_tmp = tab[j];
         for (int i(j-1); i >= k; --i) {
-            sum_tmp = sum_tmp + T[i];
+            sum_tmp = sum_tmp + tab[i];
             if (sum_tmp > sum_3)
                 sum_3 = sum_tmp;
         }
 
-        // sous-sequence debutant par le pivot (T[j])
-        sum_4 = sum_tmp = T[j];
+        // sous-sequence debutant par le pivot (tab[j])
+        sum_4 = sum_tmp = tab[j];
         for (int i(j+1); i < l; ++i) {
-            sum_tmp = sum_tmp + T[i];
+            sum_tmp = sum_tmp + tab[i];
             if (sum_tmp > sum_4)
                 sum_4 = sum_tmp;
         }
 
-        sum_0 = sum_3 + sum_4 - T[j];
+        sum_0 = sum_3 + sum_4 - tab[j];
 
         return max(max(sum_0, sum_1), sum_2);
 
