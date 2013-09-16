@@ -12,13 +12,11 @@
 #include <limits>       // int max value
 #include <algorithm>    // max()
 
+#include "sous-sequence_max.h"
+
 using namespace std;
 
-namespace {
-
-    int algo_moins_naif(int * T, unsigned n);
-    int algo_div(int * T, unsigned n);
-    int algo_div_impl(int * T, int k, int l);
+namespace algo {
 
     int algo_moins_naif(int * T, unsigned n) {
         int max_sum = numeric_limits<int>::min();
@@ -97,8 +95,8 @@ int main (int argc, char * argv []) {
     }
 
     int res;
-    /* * / res = algo_moins_naif(T, n); /* */
-    /* */ res = algo_div(T, n);     /* */
+    /* * / res = algo::algo_moins_naif(T, n); /* */
+    /* */ res = algo::algo_div(T, n);        /* */
 
     cout << res << endl;
 
