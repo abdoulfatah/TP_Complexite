@@ -16,9 +16,6 @@ using namespace std;
 
 namespace {
 
-
-    // test github
-
     int algo_moins_naif(int * T, unsigned n);
     int algo_div(int * T, unsigned n);
     int algo_div_impl(int * T, int k, int l);
@@ -46,10 +43,7 @@ namespace {
             return T[k];
         }
         else if (sz == 2) {
-            if (T[k] < T[k+1])
-                return max(T[k+1], T[k]+T[k+1]);
-            else
-                return max(T[k]  , T[k]+T[k+1]);
+            return max(max(T[k], T[k+1]), T[k] + T[k+1]);
         }
 
         int sum_0, sum_1, sum_2, sum_3, sum_4, sum_tmp;
@@ -78,12 +72,7 @@ namespace {
 
         sum_0 = sum_3 + sum_4 - T[j];
 
-        if (sum_0 < sum_1) {
-            return max(sum_1, sum_2);
-        }
-        else {
-            return max(sum_0, sum_2);
-        }
+        return max(max(sum_0, sum_1), sum_2);
 
     }
 
