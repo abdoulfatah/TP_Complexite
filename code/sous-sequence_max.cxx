@@ -51,8 +51,6 @@ namespace {
 
         sum_1 = algo_div_impl(T, k, k+j);
         sum_2 = algo_div_impl(T, k+j+1, l);
-        sum_3 = numeric_limits<int>::min();
-        sum_4 = numeric_limits<int>::min();
 
         // sous-sequence terminant par le pivot (T[j])
         sum_3 = sum_tmp = T[j];
