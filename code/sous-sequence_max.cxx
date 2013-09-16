@@ -54,7 +54,7 @@ namespace {
         sum_3 = numeric_limits<int>::min();
         sum_4 = numeric_limits<int>::min();
 
-        // sous-sequence contenant le pivot (a gauche)
+        // sous-sequence terminant par le pivot (T[j])
         sum_3 = sum_tmp = T[j];
         for (int i(j-1); i >= k; --i) {
             sum_tmp = sum_tmp + T[i];
@@ -62,7 +62,7 @@ namespace {
                 sum_3 = sum_tmp;
         }
 
-        // sous-sequence contenant le pivot (a droite)
+        // sous-sequence debutant par le pivot (T[j])
         sum_4 = sum_tmp = T[j];
         for (int i(j+1); i < l; ++i) {
             sum_tmp = sum_tmp + T[i];
