@@ -1,0 +1,167 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+%\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry}
+\geometry{a4paper}
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths%
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\usepackage{algorithm2e}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{TP1 - Sous-séquences maximales}
+\author{Sébastien Delecraz \and \'Eloi Perdereau}
+%\date{}
+
+\begin{document}
+\maketitle
+
+\section{Analyse théorique}
+
+\subsection{Algorithme naïf}
+
+\begin{algorithm}
+\Entree{T, n}
+\Sortie{Sous-séquence maximale}
+\Deb{
+$S_{max} \leftarrow -\infty$ \\
+\PourTous{$1 \leq k \leq n$}{
+\PourTous{$k \leq l \leq n$}{
+$S \leftarrow 0$ \\
+\PourTous{$k \leq j \leq l$}{
+$S \leftarrow S + T[j]$
+}
+\Si{$S > S_{max}$}{$S_{max} \leftarrow S$}
+}
+}
+\Retour{$S_{max}$}
+}
+\caption{Naïf}
+\end{algorithm}
+\paragraph{Complexité}
+\[O(n^3)\]
+
+\subsection{Algorithme moins naïf}
+
+\begin{algorithm}
+\Entree{T, n}
+\Sortie{Sous-séquence maximale}
+\Deb{
+$S_{max} \leftarrow -\infty$ \\
+\PourTous{$1 \leq k \leq n$}{
+$S \leftarrow 0$ \\
+\PourTous{$k \leq l \leq n$}{
+$S \leftarrow S + T[k]$ \\
+\Si{$S > S_{max}$}{$S_{max} \leftarrow S$}
+}
+}
+\Retour{$S_{max}$}
+}
+\caption{Moins naïf}
+\end{algorithm}
+\paragraph{Complexité}
+\[O(n^2)\]
+
+\subsection{Algorithme diviser pour régner}
+
+\begin{algorithm}
+\Entree{T, k, l}
+\Sortie{Sous-séquence maximale}
+\Deb{
+
+\lSi{$l-k = 1$}{\Retour{$T[k]$}} \\
+\lSi{$l-k = 2$}{\Retour{max\{$T[k]$, $T[k+1]$, $T[k]+T[k+1]$\}}}
+
+$j \leftarrow \frac{l - k}{2}$ \\
+$S_1 \leftarrow Diviser\_pour\_regner (T, k, k+j-1)$ \\
+$S_2 \leftarrow Diviser\_pour\_regner (T, k+j+1, l)$ \\
+$S_3 \leftarrow -\infty$ \\
+$S_4 \leftarrow -\infty$ \\
+$S_{tmp} \leftarrow T[j]$ \\
+\Pour{i variant de j-1 à k descendant}{
+$S_{tmp} \leftarrow S_{tmp} + T[i]$ \\
+\Si{$S_{tmp} > S_3$}{$S_3 \leftarrow S_{tmp}$}
+}
+$S_{tmp} \leftarrow T[j]$ \\
+\Pour{i variant de j+1 à l montant}{
+$S_{tmp} \leftarrow S_{tmp} + T[i]$ \\
+\Si{$S_{tmp} > S_3$}{$S_4 \leftarrow S_{tmp}$}
+}
+$S_0 \leftarrow S_3 + S_4 - T[j]$ \\
+\Retour{$\max{S_0, S_1, S_2}$}
+}
+\caption{Diviser pour régner}
+\end{algorithm}
+\paragraph{Complexité}
+\[O(n \log{n})\]
+
+\subsection{Algorithme incrémental}
+
+\begin{algorithm}
+\Entree{T, n}
+\Sortie{Sous-séquence maximale}
+\Deb{
+$S \leftarrow T[1]$ \\
+$queue \leftarrow 1$ \\
+\PourTous{$2 \leq i \leq n$}{
+\eSi{$T[i] > 0$}{
+$S_0 \leftarrow 0$ \\
+\Pour{j variant de i-1 à queue+1 descendant}{
+$S_0 \leftarrow S_0 + T[j]$
+}
+\Si{$S_0 > 0$}{
+$queue \leftarrow i$
+$S \leftarrow S + S_0$
+} % fin si
+} % fin si
+{ % else
+\Si{$S < T[i]$}{$S \leftarrow T[i]$}
+} % fin else
+}
+}
+\caption{Incrémental}
+\end{algorithm}
+\paragraph{Complexité}
+\[O(n)\]
+
+\end{document}
