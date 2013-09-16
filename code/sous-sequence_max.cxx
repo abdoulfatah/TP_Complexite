@@ -16,6 +16,9 @@ using namespace std;
 
 namespace {
 
+
+    // test github
+
     int algo_moins_naif(int * T, unsigned n);
     int algo_div(int * T, unsigned n);
     int algo_div_impl(int * T, int k, int l);
