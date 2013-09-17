@@ -88,6 +88,28 @@ namespace algo {
 
     }
 
+    int algo_incr(int * T, unsigned n) {
+        int max_sum (T[0]);
+        unsigned queue (0);
+
+        for (unsigned i (1); i < n; ++i) {
+            if (T[i] > 0) {
+                int sum_tmp (0);
+                for (unsigned j (i); j > queue; --j)
+                    sum_tmp += T[j];
+                if (sum_tmp > 0) {
+                    queue = i;
+                    max_sum += sum_tmp;
+                }
+            }
+            else if (max_sum < T[i])
+                max_sum = T[i];
+            cout << max_sum << ' ' << queue << endl;
+        }
+
+        return max_sum;
+    }
+
 }
 
 int main (int argc, char * argv []) {
@@ -111,8 +133,10 @@ int main (int argc, char * argv []) {
     }
 
     int res;
+    /* * / res = algo::algo_naif(T, n);       /* */
     /* * / res = algo::algo_moins_naif(T, n); /* */
-    /* */ res = algo::algo_div(T, n);        /* */
+    /* * / res = algo::algo_div(T, n);        /* */
+    /* */ res = algo::algo_incr(T, n);       /* */
 
     cout << res << endl;
 

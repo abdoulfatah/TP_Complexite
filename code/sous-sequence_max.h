@@ -14,6 +14,7 @@ namespace algo {
     int algo_moins_naif(int * T, unsigned n);
     int algo_div(int * T, unsigned n);
     int algo_div_impl(int k, int l);
+    int algo_incr(int * T, unsigned n);
 }
 
 #endif /* __SOUS_SEQUENCE_MAX_H__ */
