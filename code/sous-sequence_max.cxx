@@ -18,6 +18,20 @@ using namespace std;
 
 namespace algo {
 
+    int algo_naif(int * T, unsigned n) {
+        int max_sum = numeric_limits<int>::min();
+        for (unsigned i(0); i < n; ++i) {
+            for (unsigned j(i); j < n; ++j) {
+                int sum (0);
+                for (unsigned k(i); k < j; ++k)
+                    sum += T[j];
+                if (sum > max_sum)
+                    max_sum = sum;
+            }
+        }
+        return max_sum;
+    }
+
     int algo_moins_naif(int * T, unsigned n) {
         int max_sum = numeric_limits<int>::min();
         for (unsigned i(0); i < n; ++i) {
