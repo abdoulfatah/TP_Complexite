@@ -146,12 +146,12 @@ int main_algo(int argc, char * argv []) {
     }
 
     ostringstream osstr;
-    for (unsigned i(1); i < argc; ++i) {
+    for (int i(1); i < argc; ++i) {
         osstr << argv[i] << " ";
     }
     istringstream isstr (osstr.str());
 
-    int n;
+    unsigned n;
     isstr >> n;
     int T[n];
     for (unsigned i(0); i < n; ++i) {
