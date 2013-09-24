@@ -89,56 +89,85 @@ namespace algo {
     }
 
     int algo_incr(int * T, unsigned n) {
-        int max_sum (T[0]);
-        unsigned queue (0);
-
-        for (unsigned i (1); i < n; ++i) {
-            if (T[i] > 0) {
-                int sum_tmp (0);
-                for (unsigned j (i); j > queue; --j)
-                    sum_tmp += T[j];
-                if (sum_tmp > 0) {
-                    queue = i;
-                    max_sum += sum_tmp;
+        int sum_max (T[0]);
+        int sum_tmp(sum_max);
+        for (unsigned i(1); i < n; ++i) {
+            // max(sum_max, sum_tmp+T[i], T[i])
+            if (sum_tmp + T[i] > T[i]) {
+                sum_tmp += T[i];
+                if (sum_tmp > sum_max) {
+                    sum_max = sum_tmp;
+                    sum_tmp = 0;
                 }
             }
-            else if (max_sum < T[i])
-                max_sum = T[i];
-            cout << max_sum << ' ' << queue << endl;
         }
+        return sum_max;
+        /* unsigned queue (0); */
+        /* int sum_max (T[0]); */
+        /* int sum_tmp (0); */
+        /* /1* int tmp;    // somme temporaire terminant par T[i] *1/ */
 
-        return max_sum;
+        /* for (unsigned i (1); i < n; ++i) { */
+        /*     if (sum_tmp + T[i] < 0) { */
+        /*         sum_tmp += T[i]; */
+        /*         continue; */
+        /*     } else if (sum_tmp + T[i] >= 0) { */
+        /*         int sum_max_2 = 0; */
+        /*         int sum_tmp_2 = 0; */
+        /*         for (unsigned j(i); j > queue; --j) { */
+        /*             if (sum_max_2 + T[j] + sum_tmp_2 > sum_max_2) { */
+        /*                 sum_max_2 = sum_max_2 + T[j] + sum_tmp_2; */
+        /*                 sum_tmp_2 = 0; */
+        /*             } else { */
+        /*                 sum_tmp_2 += T[j]; */
+        /*             } */
+        /*         } */
+        /*         if (sum_max + sum_tmp + T[i] < sum_max_2) { */
+        /*             sum_max = sum_max_2; */
+        /*             sum_tmp = 0; */
+        /*         } else { */
+        /*             sum_max = sum_max + sum_tmp + T[i]; */
+        /*         } */
+        /*         queue = i; */
+        /*         sum_tmp = 0; */
+        /*     } else if (T[i] < 0 && T[i] > sum_max) { */
+        /*         sum_max = T[i]; */
+        /*         queue = i; */
+        /*     } */
+        /* } */
+
+        /* return sum_max; */
     }
 
 }
 
-int main (int argc, char * argv []) {
+/* int main (int argc, char * argv []) { */
 
-    if (argc < 3) {
-        cout << "Usage : <nb_elem> <elem_1> ... <elem_n>" << endl;
-        return 1;
-    }
+/*     if (argc < 3) { */
+/*         cout << "Usage : <nb_elem> <elem_1> ... <elem_n>" << endl; */
+/*         return 1; */
+/*     } */
 
-    ostringstream osstr;
-    for (unsigned i(1); i < argc; ++i) {
-        osstr << argv[i] << " ";
-    }
-    istringstream isstr (osstr.str());
+/*     ostringstream osstr; */
+/*     for (unsigned i(1); i < argc; ++i) { */
+/*         osstr << argv[i] << " "; */
+/*     } */
+/*     istringstream isstr (osstr.str()); */
 
-    int n;
-    isstr >> n;
-    int T[n];
-    for (unsigned i(0); i < n; ++i) {
-        isstr >> T[i];
-    }
+/*     int n; */
+/*     isstr >> n; */
+/*     int T[n]; */
+/*     for (unsigned i(0); i < n; ++i) { */
+/*         isstr >> T[i]; */
+/*     } */
 
-    int res;
-    /* * / res = algo::algo_naif(T, n);       /* */
-    /* * / res = algo::algo_moins_naif(T, n); /* */
-    /* * / res = algo::algo_div(T, n);        /* */
-    /* */ res = algo::algo_incr(T, n);       /* */
+/*     int res; */
+/*     /1* * / res = algo::algo_naif(T, n);       /1* *1/ */
+/*     /1* * / res = algo::algo_moins_naif(T, n); /1* *1/ */
+/*     /1* * / res = algo::algo_div(T, n);        /1* *1/ */
+/*     /1* *1/ res = algo::algo_incr(T, n);       /1* *1/ */
 
-    cout << res << endl;
+/*     cout << res << endl; */
 
-    return 0;
-}
+/*     return 0; */
+/* } */
