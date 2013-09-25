@@ -115,33 +115,33 @@ namespace algo {
 
 }
 
-int main (int argc, char * argv []) {
+/* int main (int argc, char * argv []) { */
 
-    if (argc < 3) {
-        cout << "Usage : <nb_elem> <elem_1> ... <elem_n>" << endl;
-        return 1;
-    }
+/*     if (argc < 3) { */
+/*         cout << "Usage : <nb_elem> <elem_1> ... <elem_n>" << endl; */
+/*         return 1; */
+/*     } */
 
-    ostringstream osstr;
-    for (unsigned i(1); i < argc; ++i) {
-        osstr << argv[i] << " ";
-    }
-    istringstream isstr (osstr.str());
+/*     ostringstream osstr; */
+/*     for (unsigned i(1); i < argc; ++i) { */
+/*         osstr << argv[i] << " "; */
+/*     } */
+/*     istringstream isstr (osstr.str()); */
 
-    int n;
-    isstr >> n;
-    int T[n];
-    for (unsigned i(0); i < n; ++i) {
-        isstr >> T[i];
-    }
+/*     int n; */
+/*     isstr >> n; */
+/*     int T[n]; */
+/*     for (unsigned i(0); i < n; ++i) { */
+/*         isstr >> T[i]; */
+/*     } */
 
-    int res;
-    /* * / res = algo::algo_naif(T, n);       /* */
-    /* * / res = algo::algo_moins_naif(T, n); /* */
-    /* * / res = algo::algo_div(T, n);        /* */
-    /* */ res = algo::algo_incr(T, n);       /* */
+/*     int res; */
+/*     /1* * / res = algo::algo_naif(T, n);       /1* *1/ */
+/*     /1* * / res = algo::algo_moins_naif(T, n); /1* *1/ */
+/*     /1* * / res = algo::algo_div(T, n);        /1* *1/ */
+/*     /1* *1/ res = algo::algo_incr(T, n);       /1* *1/ */
 
-    cout << res << endl;
+/*     cout << res << endl; */
 
-    return 0;
-}
+/*     return 0; */
+/* } */
