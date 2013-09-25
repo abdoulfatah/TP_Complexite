@@ -89,25 +89,28 @@ namespace algo {
     }
 
     int algo_incr(int * T, unsigned n) {
-        int max_sum (T[0]);
-        unsigned queue (0);
+        int sum_max(T[0]);
+        int sum_1(0);
+        int sum_2(0);
 
-        for (unsigned i (1); i < n; ++i) {
-            if (T[i] > 0) {
-                int sum_tmp (0);
-                for (unsigned j (i); j > queue; --j)
-                    sum_tmp += T[j];
-                if (sum_tmp > 0) {
-                    queue = i;
-                    max_sum += sum_tmp;
-                }
+        for (int i(1); i < n; ++i) {
+            sum_1 += T[i];
+            sum_2 += T[i];
+            if (sum_2 < 0)
+                sum_2 = 0;
+            if (sum_1 > 0) {
+                sum_max += sum_1;
+                sum_1 = 0;
+                sum_2 = 0;
             }
-            else if (max_sum < T[i])
-                max_sum = T[i];
-            cout << max_sum << ' ' << queue << endl;
+            if (sum_2 > sum_max) {
+                sum_max = sum_2;
+                sum_1 = 0;
+                sum_2 = 0;
+            }
         }
 
-        return max_sum;
+        return sum_max;
     }
 
 }
