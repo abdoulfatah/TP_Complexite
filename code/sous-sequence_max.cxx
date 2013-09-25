@@ -61,10 +61,10 @@ namespace algo {
         }
 
         int sum_0, sum_1, sum_2, sum_3, sum_4, sum_tmp;
-        int j = sz / 2;
+        int j = k + (sz / 2);
 
-        sum_1 = algo_div_impl(k, k+j);
-        sum_2 = algo_div_impl(k+j+1, l);
+        sum_1 = algo_div_impl(k, j);
+        sum_2 = algo_div_impl(j+1, l);
 
         // sous-sequence terminant par le pivot (tab[j])
         sum_3 = sum_tmp = tab[j];
