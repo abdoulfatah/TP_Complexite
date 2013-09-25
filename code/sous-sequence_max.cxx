@@ -123,7 +123,7 @@ int test_asymptote() {
     cout << "n;secondes" << endl;
     for (unsigned i(1); i <= n_max/step; ++i) {
         unsigned n = i * step;
-        int T[n];
+        int * T = new int [n];
 
         // generate random array of n integers from -99 to 99
         for (unsigned j(0); j < n; ++j) {
@@ -137,6 +137,8 @@ int test_asymptote() {
         algo::algo_incr(T, n);
         end = clock();
         cout << (end - start) / float(CLOCKS_PER_SEC) << endl;
+
+        delete [] T;
     }
     return 0;
 }
