@@ -35,22 +35,22 @@
 \subsection{Algorithme naïf}
 
 \begin{algorithm}
-\Entree{T, n}
-\Sortie{Sous-séquence maximale}
-\Deb{
-$S_{max} \leftarrow -\infty$ \\
-\PourTous{$1 \leq k \leq n$}{
-\PourTous{$k \leq l \leq n$}{
-$S \leftarrow 0$ \\
-\PourTous{$k \leq j \leq l$}{
-$S \leftarrow S + T[j]$
-}
-\Si{$S > S_{max}$}{$S_{max} \leftarrow S$}
-}
-}
-\Retour{$S_{max}$}
-}
-\caption{Naïf}
+  \Entree{T, n}
+  \Sortie{Sous-séquence maximale}
+  \Deb{
+    $S_{max} \leftarrow -\infty$ \\
+    \PourTous{$1 \leq k \leq n$}{
+      \PourTous{$k \leq l \leq n$}{
+        $S \leftarrow 0$ \\
+        \PourTous{$k \leq j \leq l$}{
+          $S \leftarrow S + T[j]$
+        }
+        \Si{$S > S_{max}$}{$S_{max} \leftarrow S$}
+      }
+    }
+    \Retour{$S_{max}$}
+  }
+  \caption{Naïf}
 \end{algorithm}
 \paragraph{Complexité}
 \[O(n^3)\]
@@ -58,20 +58,20 @@ $S \leftarrow S + T[j]$
 \subsection{Algorithme moins naïf}
 
 \begin{algorithm}
-\Entree{T, n}
-\Sortie{Sous-séquence maximale}
-\Deb{
-$S_{max} \leftarrow -\infty$ \\
-\PourTous{$1 \leq k \leq n$}{
-$S \leftarrow 0$ \\
-\PourTous{$k \leq l \leq n$}{
-$S \leftarrow S + T[k]$ \\
-\Si{$S > S_{max}$}{$S_{max} \leftarrow S$}
-}
-}
-\Retour{$S_{max}$}
-}
-\caption{Moins naïf}
+  \Entree{T, n}
+  \Sortie{Sous-séquence maximale}
+  \Deb{
+    $S_{max} \leftarrow -\infty$ \\
+    \PourTous{$1 \leq k \leq n$}{
+      $S \leftarrow 0$ \\
+      \PourTous{$k \leq l \leq n$}{
+        $S \leftarrow S + T[k]$ \\
+        \Si{$S > S_{max}$}{$S_{max} \leftarrow S$}
+      }
+    }
+    \Retour{$S_{max}$}
+  }
+  \caption{Moins naïf}
 \end{algorithm}
 \paragraph{Complexité}
 \[O(n^2)\]
@@ -79,28 +79,28 @@ $S \leftarrow S + T[k]$ \\
 \subsection{Algorithme diviser pour régner}
 
 \begin{algorithm}
-\Entree{T, k, l}
-\Sortie{Sous-séquence maximale}
-\Deb{
-\lSi{$l-k = 1$}{\Retour{$T[k]$}}
-\lSi{$l-k = 2$}{\Retour{max\{$T[k]$, $T[k+1]$, $T[k]+T[k+1]$\}}}
-$j \leftarrow \frac{l - k}{2}$ \\
-$S_1 \leftarrow Diviser\_pour\_regner (T, k, k+j-1)$ \\
-$S_2 \leftarrow Diviser\_pour\_regner (T, k+j+1, l)$ \\
-$S_3 \leftarrow S_{tmp} \leftarrow T[j]$ \\
-\Pour{i variant de j-1 à k descendant}{
-$S_{tmp} \leftarrow S_{tmp} + T[i]$ \\
-\Si{$S_{tmp} > S_3$}{$S_3 \leftarrow S_{tmp}$}
-}
-$S_4 \leftarrow S_{tmp} \leftarrow T[j]$ \\
-\Pour{i variant de j+1 à l montant}{
-$S_{tmp} \leftarrow S_{tmp} + T[i]$ \\
-\Si{$S_{tmp} > S_3$}{$S_4 \leftarrow S_{tmp}$}
-}
-$S_0 \leftarrow S_3 + S_4 - T[j]$ \\
-\Retour{$\max{S_0, S_1, S_2}$}
-}
-\caption{Diviser pour régner}
+  \Entree{T, k, l}
+  \Sortie{Sous-séquence maximale}
+  \Deb{
+    \lSi{$l-k = 1$}{\Retour{$T[k]$}}
+    \lSi{$l-k = 2$}{\Retour{max\{$T[k]$, $T[k+1]$, $T[k]+T[k+1]$\}}}
+    $j \leftarrow \frac{l - k}{2}$ \\
+    $S_1 \leftarrow Diviser\_pour\_regner (T, k, k+j-1)$ \\
+    $S_2 \leftarrow Diviser\_pour\_regner (T, k+j+1, l)$ \\
+    $S_3 \leftarrow S_{tmp} \leftarrow T[j]$ \\
+    \Pour{i variant de j-1 à k descendant}{
+      $S_{tmp} \leftarrow S_{tmp} + T[i]$ \\
+      \Si{$S_{tmp} > S_3$}{$S_3 \leftarrow S_{tmp}$}
+    }
+    $S_4 \leftarrow S_{tmp} \leftarrow T[j]$ \\
+    \Pour{i variant de j+1 à l montant}{
+      $S_{tmp} \leftarrow S_{tmp} + T[i]$ \\
+      \Si{$S_{tmp} > S_3$}{$S_4 \leftarrow S_{tmp}$}
+    }
+    $S_0 \leftarrow S_3 + S_4 - T[j]$ \\
+    \Retour{$\max{S_0, S_1, S_2}$}
+  }
+  \caption{Diviser pour régner}
 \end{algorithm}
 \paragraph{Complexité}
 \[O(n \log{n})\]
@@ -109,28 +109,22 @@ $S_0 \leftarrow S_3 + S_4 - T[j]$ \\
 \subsection{Algorithme incrémental}
 
 \begin{algorithm}
-\Entree{T, n}
-\Sortie{Sous-séquence maximale}
-\Deb{
-$S \leftarrow T[1]$ \\
-$queue \leftarrow 1$ \\
-\PourTous{$2 \leq i \leq n$}{
-\eSi{$T[i] > 0$}{
-$S_0 \leftarrow 0$ \\
-\Pour{j variant de i-1 à queue+1 descendant}{
-$S_0 \leftarrow S_0 + T[j]$
-}
-\Si{$S_0 > 0$}{
-$queue \leftarrow i$
-$S \leftarrow S + S_0$
-} % fin si
-} % fin si
-{ % else
-\Si{$S < T[i]$}{$S \leftarrow T[i]$}
-} % fin else
-}
-}
-\caption{Incrémental}
+  \Entree{T, n}
+  \Sortie{Sous-séquence maximale}
+  \Deb{
+    $S_{max} \leftarrow T[1]$ \\
+    $sum_1 \leftarrow 0$ \\
+    $sum_2 \leftarrow 0$ \\
+    \PourTous{$2 \leq i \leq n$}{
+      $sum_1 += T[i]$ \\
+      $sum_2 += T[i]$ \\
+      \eSi{$sum_2 < 0$}{
+        $sum_2 \leftarrow 0$ \\
+      }
+      %%a finir
+    }
+  }
+  \caption{Incrémental}
 \end{algorithm}
 \paragraph{Complexité}
 \[O(n)\]
