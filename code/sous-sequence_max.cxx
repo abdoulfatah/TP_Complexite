@@ -93,7 +93,7 @@ namespace algo {
         int sum_1(0);
         int sum_2(0);
 
-        for (int i(1); i < n; ++i) {
+        for (unsigned i(1); i < n; ++i) {
             sum_1 += T[i];
             sum_2 += T[i];
             if (sum_2 < 0)
