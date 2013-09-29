@@ -117,29 +117,31 @@ namespace algo {
 
 int test_asymptote() {
     unsigned n_max = 50000;
-    unsigned step = 1000;
+    unsigned step = n_max / 10;
     clock_t start, end;
+    int * T = new int [n_max];
+    unsigned start_index = 0;
+    srand(time(NULL));
 
     cout << "n;secondes" << endl;
     for (unsigned i(1); i <= n_max/step; ++i) {
         unsigned n = i * step;
-        int * T = new int [n];
 
         // generate random array of n integers from -99 to 99
-        for (unsigned j(0); j < n; ++j) {
+        for (unsigned j(start_index); j < n; ++j) {
             int sign = rand() % 2;
             int x = rand() % 100;
             T[j] = sign ? -x : x;
         }
+        start_index = n;
 
         cout << n << ";";
         start = clock();
         algo::algo_incr(T, n);
         end = clock();
         cout << (end - start) / float(CLOCKS_PER_SEC) << endl;
-
-        delete [] T;
     }
+    delete [] T;
     return 0;
 }
 
