@@ -122,6 +122,50 @@ void fill_with_random(int * T, unsigned k, unsigned l) {
     }
 }
 
+int test_algos(int argc, char * argv []) {
+    unsigned n (10);
+    unsigned failures (0);
+    unsigned long iterations (100);
+    bool verbose (false);
+    srand(time(NULL));
+
+    if (argc == 2) {
+        istringstream isstr (argv[1]);
+        isstr >> verbose;
+    }
+
+    cout << "Testing algorithms..." << '\n';
+    for (unsigned i(0); i < iterations; ++i) {
+        int * T = new int [n];
+        fill_with_random(T, 0, n);
+        int res_naif       = algo::algo_naif(T, n);
+        int res_moins_naif = algo::algo_moins_naif(T, n);
+        int res_div        = algo::algo_div(T, n);
+        int res_incr       = algo::algo_incr(T, n);
+
+        if (res_naif != res_moins_naif || res_naif != res_div       ||
+            res_naif != res_incr       || res_moins_naif != res_div ||
+            res_moins_naif != res_incr || res_div != res_incr) {
+            ++failures;
+            if (verbose) {
+                cout << i << ":\t"
+                     << res_naif << '\t' << res_moins_naif   << '\t'
+                     << res_div  << '\t' << res_incr << endl << '\t';
+                for (unsigned j(0); j < n; ++j) {
+                    cout << T[j] << ' ';
+                }
+                cout << endl;
+            }
+        }
+        delete [] T;
+    }
+    cout << "Total : "
+         << failures << " failures over "
+         << iterations << " iterations for a total of "
+         << failures / double(iterations) * 100 << "\% failures" << endl;
+    return 0;
+}
+
 int test_asymptote() {
     unsigned n_max = 50000;
     unsigned step = n_max / 10;
@@ -179,8 +223,9 @@ int main_algo(int argc, char * argv []) {
 
 int main (int argc, char * argv []) {
     int r;
-    /* */ r = main_algo(argc, argv); /* */
-    /* * / r = test_asymptote();      /* */
+    /* * / r = main_algo(argc, argv);  /* */
+    /* * / r = test_asymptote();       /* */
+    /* */ r = test_algos(argc, argv); /* */
     return r;
 }
 
