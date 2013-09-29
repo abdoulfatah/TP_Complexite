@@ -1,7 +1,7 @@
 /*
- * @File algo_naif.cxx
+ * @File sous-sequence_max.cxx
  *
- * @Author p1002650
+ * @Author Sebastien Delecraz, Eloi Perdereau
  *
  * @Date 14-09-2013
  *
