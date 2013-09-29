@@ -22,9 +22,9 @@ namespace algo {
         int max_sum = numeric_limits<int>::min();
         for (unsigned i(0); i < n; ++i) {
             for (unsigned j(i); j < n; ++j) {
-                int sum (0);
-                for (unsigned k(i); k < j; ++k)
-                    sum += T[j];
+                int sum (T[i]);
+                for (unsigned k(i+1); k < j; ++k)
+                    sum += T[k];
                 if (sum > max_sum)
                     max_sum = sum;
             }
@@ -166,9 +166,12 @@ int main_algo(int argc, char * argv []) {
     }
 
     int res;
-    /* * / res = algo::algo_naif(T, n);       /* */
-    /* * / res = algo::algo_moins_naif(T, n); /* */
-    /* * / res = algo::algo_div(T, n);        /* */
+    /* */ res = algo::algo_naif(T, n);       /* */
+    cout << res << endl;
+    /* */ res = algo::algo_moins_naif(T, n); /* */
+    cout << res << endl;
+    /* */ res = algo::algo_div(T, n);        /* */
+    cout << res << endl;
     /* */ res = algo::algo_incr(T, n);       /* */
 
     cout << res << endl;
@@ -178,8 +181,8 @@ int main_algo(int argc, char * argv []) {
 
 int main (int argc, char * argv []) {
     int r;
-    /* * / r = main_algo(argc, argv); /* */
-    /* */ r = test_asymptote();      /* */
+    /* */ r = main_algo(argc, argv); /* */
+    /* * / r = test_asymptote();      /* */
     return r;
 }
 
