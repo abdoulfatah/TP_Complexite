@@ -96,20 +96,18 @@ namespace algo {
         for (unsigned i(1); i < n; ++i) {
             sum_1 += T[i];
             sum_2 += T[i];
+	    if ((T[i] < 0) && (T[i] > sum_max))
+	        sum_max = T[i];
             if (sum_2 < 0)
                 sum_2 = 0;
             if (sum_1 > 0) {
-                sum_max += sum_1;
-                sum_1 = 0;
-                sum_2 = 0;
-            }
-            if (sum_2 > sum_max) {
-                sum_max = sum_2;
-                sum_1 = 0;
-                sum_2 = 0;
-            }
-        }
-
+	        if (sum_max + sum_1 < sum_2)
+		    sum_max = sum_2;
+	        else
+		    sum_max += sum_1;
+		sum_1 = sum_2 = 0;
+	    }
+	}
         return sum_max;
     }
 
