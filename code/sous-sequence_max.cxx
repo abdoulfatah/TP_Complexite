@@ -113,6 +113,15 @@ namespace algo {
 
 }
 
+void fill_with_random(int * T, unsigned k, unsigned l) {
+    // fill T[i] to T[l-1] with random integers from -99 to 99
+    // srand() must already have been called
+    for (unsigned i(k); i < l; ++i) {
+        int x = rand() % 100;
+        T[i] = rand() % 2 ? -x : x;
+    }
+}
+
 int test_asymptote() {
     unsigned n_max = 50000;
     unsigned step = n_max / 10;
@@ -124,13 +133,7 @@ int test_asymptote() {
     cout << "n;secondes" << endl;
     for (unsigned i(1); i <= n_max/step; ++i) {
         unsigned n = i * step;
-
-        // generate random array of n integers from -99 to 99
-        for (unsigned j(start_index); j < n; ++j) {
-            int sign = rand() % 2;
-            int x = rand() % 100;
-            T[j] = sign ? -x : x;
-        }
+        fill_with_random(T, start_index, n);
         start_index = n;
 
         cout << n << ";";
