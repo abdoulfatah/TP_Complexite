@@ -23,7 +23,7 @@ namespace algo {
         for (unsigned i(0); i < n; ++i) {
             for (unsigned j(i); j < n; ++j) {
                 int sum (T[i]);
-                for (unsigned k(i+1); k < j; ++k)
+                for (unsigned k(i+1); k <= j; ++k)
                     sum += T[k];
                 if (sum > max_sum)
                     max_sum = sum;
@@ -166,12 +166,9 @@ int main_algo(int argc, char * argv []) {
     }
 
     int res;
-    /* */ res = algo::algo_naif(T, n);       /* */
-    cout << res << endl;
-    /* */ res = algo::algo_moins_naif(T, n); /* */
-    cout << res << endl;
-    /* */ res = algo::algo_div(T, n);        /* */
-    cout << res << endl;
+    /* * / res = algo::algo_naif(T, n);       /* */
+    /* * / res = algo::algo_moins_naif(T, n); /* */
+    /* * / res = algo::algo_div(T, n);        /* */
     /* */ res = algo::algo_incr(T, n);       /* */
 
     cout << res << endl;
