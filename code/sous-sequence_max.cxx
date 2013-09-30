@@ -92,20 +92,36 @@ namespace algo {
         int sum_max(T[0]);
         int sum_1(0);
         int sum_2(0);
+        bool maj(false);
 
         for (unsigned i(1); i < n; ++i) {
             sum_1 += T[i];
             sum_2 += T[i];
-            if ((T[i] < 0) && (T[i] > sum_max))
-                sum_max = T[i];
-            if (sum_2 < 0)
-                sum_2 = 0;
-            if (sum_1 > 0) {
-                if (sum_max + sum_1 < sum_2)
-                    sum_max = sum_2;
-                else
+            if (T[i] < 0) {
+                if ((T[i] > sum_max)) {
+                    sum_max = T[i];
+                    sum_1 = 0;
+                    sum_2 = 0;
+                }
+                if (sum_2 < 0) sum_2 = 0;
+            }
+            else {
+                int sum_tmp(sum_max);
+                if (sum_1 + sum_tmp > sum_tmp) {
                     sum_max += sum_1;
-                sum_1 = sum_2 = 0;
+                    maj = true;
+                }
+                if (sum_2 > sum_tmp && sum_2 > sum_1 + sum_tmp) {
+                    sum_max = sum_2;
+                    sum_1 = 0;
+                    sum_2 = 0;
+                    maj = true;
+                }
+                if (maj) {
+                    sum_1 = 0;
+                    sum_2 = 0;
+                    maj = false;
+                }
             }
         }
         return sum_max;
