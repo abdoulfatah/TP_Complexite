@@ -208,22 +208,13 @@ int test_asymptote() {
 
 int main_algo(int argc, char * argv []) {
 
-    if (argc < 3) {
-        cout << "Usage : <nb_elem> <elem_1> ... <elem_n>" << endl;
-        return 1;
-    }
-
-    ostringstream osstr;
-    for (int i(1); i < argc; ++i) {
-        osstr << argv[i] << " ";
-    }
-    istringstream isstr (osstr.str());
-
     unsigned n;
-    isstr >> n;
-    int T[n];
+    int * T;
+
+    cin >> n;
+    T = new int[n];
     for (unsigned i(0); i < n; ++i) {
-        isstr >> T[i];
+        cin >> T[i];
     }
 
     int res;
@@ -233,6 +224,8 @@ int main_algo(int argc, char * argv []) {
     /* */ res = algo::algo_incr(T, n);       /* */
 
     cout << res << endl;
+
+    delete [] T;
 
     return 0;
 }
