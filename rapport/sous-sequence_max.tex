@@ -1,5 +1,6 @@
 \documentclass[11pt, a4paper]{article}
 
+
 \usepackage[english,francais]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -11,6 +12,8 @@
 \usepackage{amssymb}
 \usepackage[french,ruled]{algorithm2e}
 
+\usepackage{geometry}
+\geometry{hscale=0.75,vscale=0.75,centering}
 
 \title{TP1 - Sous-séquences maximales}
 \author{Sébastien Delecraz \and \'Eloi Perdereau}
@@ -25,8 +28,8 @@
   Ce rapport propose une étude de différents algorithmes pour résoudre le
   problème du calcul de la sous-séquence de somme maximale dans un tableau
   d'entier. Quatre algorithmes de complexité différentes sont présentés ici.
-  On trouvera donc pour chacun leur pseudo-code, une étude de leur
-  complexité et des tests de performance. Enfin nous confronterons les
+  On trouvera donc pour chacun leur pseudo-code et une étude de leur
+  complexité. Enfin nous confronterons les
   différents résultats obtenus et l'analyse théorique réalisée.
 \end{abstract}
 
@@ -34,7 +37,7 @@
 
 \subsection{Algorithme naïf}
 
-\begin{algorithm}
+\begin{algorithm}[H]
   \Entree{T, n}
   \Sortie{Sous-séquence maximale}
   \Deb{
@@ -53,11 +56,11 @@
   \caption{Naïf}
 \end{algorithm}
 \paragraph{Complexité}
-\[O(n^3)\]
+$C(n)$ = $n*n*n$ = $O(n^3)$
 
 \subsection{Algorithme moins naïf}
 
-\begin{algorithm}
+\begin{algorithm}[H]
   \Entree{T, n}
   \Sortie{Sous-séquence maximale}
   \Deb{
@@ -74,11 +77,11 @@
   \caption{Moins naïf}
 \end{algorithm}
 \paragraph{Complexité}
-\[O(n^2)\]
+$C(n)$ = $n*n$ = $O(n^2)$
 
 \subsection{Algorithme diviser pour régner}
 
-\begin{algorithm}
+\begin{algorithm}[H]
   \Entree{T, k, l}
   \Sortie{Sous-séquence maximale}
   \Deb{
@@ -98,35 +101,52 @@
       \Si{$S_{tmp} > S_4$}{$S_4 \leftarrow S_{tmp}$}
     }
     $S_0 \leftarrow S_3 + S_4 - T[j]$ \\
-    \Retour{max\{$S_0$, $S_1$, $S_2$\}}
+    \Retour{$max\{S_0, S_1, S_2\}$}
   }
   \caption{Diviser pour régner}
 \end{algorithm}
 \paragraph{Complexité}
-\[O(n \log{n})\]
+$C(n)$ = $2*C(n/2)+2*\frac{n}{2}$ = $\sum_{i=0}^{\log{n}} 2^i*\frac{n}{2^i}$ =
+$O(n \log{n})$ 
 
 
 \subsection{Algorithme incrémental}
 
-\begin{algorithm}
+\begin{algorithm}[H]
   \Entree{T, n}
   \Sortie{Sous-séquence maximale}
   \Deb{
     $S_{max} \leftarrow T[1]$ \\
-    $S_1 \leftarrow S_2 \leftarrow 0$ \\
+    $S_1 \leftarrow 0$ \\
+    $S_2 \leftarrow 0$ \\
+    $maj \leftarrow false$ \\
     \PourTous{$2 \leq i \leq n$}{
       $S_1 \leftarrow S_1 + T[i]$ \\
       $S_2 \leftarrow S_2 + T[i]$ \\
-      \Si{$S_2 < 0$}{
-        $S_2 \leftarrow 0$
+      \Si{$T[i] < 0$}{
+        \Si{$T[i] > S_{max}$}{
+          $S_{max} \leftarrow T[i]$ \\
+          $S_1 \leftarrow 0$ \\
+          $S_2 \leftarrow 0$ \\
+        }
+        \Si{$S_2 < 0$}{
+          $S_2 \leftarrow 0$ \\
+        }
       }
-      \Si{$S_1 > 0$}{
-        $S_{max} \leftarrow S_{max} + S_1$ \\
-        $S_1 \leftarrow S_2 \leftarrow 0$
-      }
-      \Si{$S_2 > S_{max}$}{
-        $S_{max} \leftarrow S_2$ \\
-        $S_1 \leftarrow S_2 \leftarrow 0$
+      \Sinon{
+        $S_{tmp} \leftarrow S_{max}$\\
+        \Si{$S_1 + S_{tmp} > S_{tmp}$}{
+          $S_{max} \leftarrow S_{max} + S_1$ \\
+          $maj \leftarrow true$ \\
+        }
+        \Si{$S_2 > S_{tmp} && S_2 > S_1 + S_{tmp}$}{
+          $S_{max} \leftarrow S_2$ \\
+          $maj \leftarrow true$ \\
+        }
+        \Si{$maj == true$}{
+          $S_1 \leftarrow 0$ \\
+          $S_2 \leftarrow 0$ \\
+        }
       }
     }
     \Retour{$S_{max}$}
@@ -134,6 +154,20 @@
   \caption{Incrémental}
 \end{algorithm}
 \paragraph{Complexité}
-\[O(n)\]
+$C(n)$ = $n$ = $O(n)$
+
+
+\newpage
+\section{Résulats expérimentaux}
+
+Le graphique ce dessous nous montre pour chaque algorithme leur temps
+d'execution en fonction de la taille des instances données en entrée.
+
+\begin{figure}[h]
+
+\includegraphics [scale=0.5]{courbe.png}
+\caption{Évolution des perfomances des algorithmes}
+\label{courbe}
+\end{figure}
 
 \end{document}
