@@ -183,16 +183,24 @@ int test_algos(int argc, char * argv []) {
 }
 
 int test_asymptote() {
-    unsigned n_max = 50000;
-    unsigned step = n_max / 10;
+    unsigned n_max = 1000000000;
+    unsigned step = 10;
     clock_t start, end;
     int * T = new int [n_max];
     unsigned start_index = 0;
     srand(time(NULL));
 
     cout << "n;secondes" << endl;
-    for (unsigned i(1); i <= n_max/step; ++i) {
-        unsigned n = i * step;
+    for (unsigned n(step);  n <= n_max; n+=step) {
+        if (n >= 100         && n < 1000)         step = 10;
+        if (n >= 1000        && n < 10000)        step = 100;
+        if (n >= 10000       && n < 100000)       step = 1000;
+        if (n >= 100000      && n < 1000000)      step = 10000;
+        if (n >= 1000000     && n < 10000000)     step = 100000;
+        if (n >= 10000000    && n < 100000000)    step = 1000000;
+        if (n >= 100000000   && n < 1000000000)   step = 10000000;
+  
+  
         fill_with_random(T, start_index, n);
         start_index = n;
 
@@ -201,6 +209,7 @@ int test_asymptote() {
         algo::algo_incr(T, n);
         end = clock();
         cout << (end - start) / float(CLOCKS_PER_SEC) << endl;
+        if ((end - start) / float(CLOCKS_PER_SEC) > 5.0) break;
     }
     delete [] T;
     return 0;
@@ -233,8 +242,8 @@ int main_algo(int argc, char * argv []) {
 int main (int argc, char * argv []) {
     int r;
     /* * / r = main_algo(argc, argv);  /* */
-    /* * / r = test_asymptote();       /* */
-    /* */ r = test_algos(argc, argv); /* */
+    /* */ r = test_asymptote();       /* */
+    /* * / r = test_algos(argc, argv); /* */
     return r;
 }
 
