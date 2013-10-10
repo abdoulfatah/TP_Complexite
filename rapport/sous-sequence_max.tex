@@ -85,7 +85,7 @@ $C(n)$ = $n*n$ = $O(n^2)$
   \Entree{T, k, l}
   \Sortie{Sous-séquence maximale}
   \Deb{
-    \lSi{$l-k = 1$}{\Retour{$T[k]$}} \\
+    \lSi{$l-k = 1$}{\Retour{$T[k]$}}
     \lSi{$l-k = 2$}{\Retour{max\{$T[k]$, $T[k+1]$, $T[k]+T[k+1]$\}}}
     $j \leftarrow \frac{l - k}{2}$ \\
     $S_1 \leftarrow Diviser\_pour\_regner (T, k, j)$ \\
@@ -107,7 +107,7 @@ $C(n)$ = $n*n$ = $O(n^2)$
 \end{algorithm}
 \paragraph{Complexité}
 $C(n)$ = $2*C(n/2)+2*\frac{n}{2}$ = $\sum_{i=0}^{\log{n}} 2^i*\frac{n}{2^i}$ =
-$O(n \log{n})$ 
+$O(n \log{n})$
 
 
 \subsection{Algorithme incrémental}
@@ -139,7 +139,7 @@ $O(n \log{n})$
           $S_{max} \leftarrow S_{max} + S_1$ \\
           $maj \leftarrow true$ \\
         }
-        \Si{$S_2 > S_{tmp} && S_2 > S_1 + S_{tmp}$}{
+        \Si{$S_2 > S_{tmp} \&\& S_2 > S_1 + S_{tmp}$}{
           $S_{max} \leftarrow S_2$ \\
           $maj \leftarrow true$ \\
         }
@@ -149,7 +149,7 @@ $O(n \log{n})$
         }
       }
     }
-    \Retour{$S_{max}$}
+    % \Retour{$S_{max}$}
   }
   \caption{Incrémental}
 \end{algorithm}
@@ -164,7 +164,7 @@ Le graphique ce dessous nous montre pour chaque algorithme leur temps
 d'execution en fonction de la taille des instances données en entrée.
 
 \begin{figure}[h]
-\includegraphics [scale=0.5]{courbe.png}
+\includegraphics [scale=0.5]{images/comparatif.png}
 \caption{Évolution des perfomances des algorithmes}
 \label{courbe}
 \end{figure}
