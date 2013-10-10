@@ -57,8 +57,8 @@
 \end{algorithm}
 \subsection{Complexité}
 L'algorithme se compose de trois boucles de parcours du tableau imbriquées. Sa
-complexité est donc :
-\[C(n) = n*n*n = \theta{(n^3)}\]
+complexité dans le pire des cas est donc :
+\[C(n) = \Theta{(n^3)}\]
 
 \section{Algorithme moins naïf}
 \subsection{Pseudo-code}
@@ -81,8 +81,8 @@ complexité est donc :
 \end{algorithm}
 \subsection{Complexité}
 L'algorithme se compose de deux boucles de parcours du tableau imbriquées. Sa
-complexité est donc :
-\[C(n) = n*n = \theta{(n^2)}\]
+complexité dans le pire des cas est donc :
+\[C(n) = \Theta{(n^2)}\]
 
 \section{Algorithme diviser pour régner}
 \subsection{Pseudo-code}
@@ -116,14 +116,14 @@ Cet algorithme applique la méthode diviser pour régner. On peut écrire son
 équation de récurrence :
 \begin{align*}
   C(n) & = 2*C(n/2) + 2*(n/2) \\
-       & = 2*C(n/2) + \theta{(n)}
+       & = 2*C(n/2) + \Theta{(n)}
 \end{align*}
 On applique ensuite le Master Theorem : \\
 $c = \log_2 2 = 1$ \\
-$f(n) = \theta{(n)}$ \\
-On est dans le cas 2 car $f(n) = \theta{(n^c)}$. Donc la complexité totale de
+$f(n) = \Theta{(n)}$ \\
+On est dans le cas 2 car $f(n) = \Theta{(n^c)}$. Donc la complexité de
 l'algorithme est :
-\[ C(n) = \theta{(n \log n)} \]
+\[ C(n) = \Theta{(n \log n)} \]
 
 \section{Algorithme incrémental}
 \subsection{Pseudo-code}
@@ -170,20 +170,48 @@ l'algorithme est :
   \caption{Incrémental}
 \end{algorithm}
 \subsection{Complexité}
-L'algorithme se compose de deux boucles de parcours du tableau imbriquées. Sa
-complexité est donc :
-\[C(n) = n = \theta{(n)}\]
+L'algorithme ne parcours qu'une seule fois le tableau d'entrée. Sa
+complexité dans le pire des cas est donc :
+\[C(n) = n = \Theta{(n)}\]
 
 \newpage
 \section{Résulats expérimentaux}
 
-Le graphique ce dessous nous montre pour chaque algorithme leur temps
+Les performances de chaque algorithme sont données individuellement en
+annexes. \\
+
+Le graphique ci dessous nous montre pour chaque algorithme leur temps
 d'execution en fonction de la taille des instances données en entrée.
 
 \begin{figure}[h]
 \includegraphics [scale=0.5]{images/comparatif.png}
 \caption{Évolution des perfomances des algorithmes}
-\label{courbe}
+\end{figure}
+
+On constate une différence de performances qui correspond bien à l'analyse de
+complexité effectuée.
+\[ \Theta{(n^3)} > \Theta{(n^2)} > \Theta{(n \log n)} > \Theta{(n)} \]
+
+\appendix
+
+\begin{figure}[h]
+\includegraphics [scale=0.5]{images/algo_naif.png}
+\caption{Performances de l'algorithme naïf}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics [scale=0.5]{images/algo_moins_naif.png}
+\caption{Performances de l'algorithme moins naïf}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics [scale=0.5]{images/algo_div.png}
+\caption{Performances de l'algorithme diviser pour régner}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics [scale=0.5]{images/algo_incr.png}
+\caption{Performances de l'algorithme incrémental}
 \end{figure}
 
 \end{document}
