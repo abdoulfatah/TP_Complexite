@@ -11,6 +11,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage[french,ruled]{algorithm2e}
+\usepackage{amsmath}    % align
 
 \usepackage{geometry}
 \geometry{hscale=0.75,vscale=0.75,centering}
@@ -33,9 +34,8 @@
   différents résultats obtenus et l'analyse théorique réalisée.
 \end{abstract}
 
-\section{Analyse théorique}
-
-\subsection{Algorithme naïf}
+\section{Algorithme naïf}
+\subsection{Pseudo-code}
 
 \begin{algorithm}[H]
   \Entree{T, n}
@@ -55,10 +55,13 @@
   }
   \caption{Naïf}
 \end{algorithm}
-\paragraph{Complexité}
-$C(n)$ = $n*n*n$ = $O(n^3)$
+\subsection{Complexité}
+L'algorithme se compose de trois boucles de parcours du tableau imbriquées. Sa
+complexité est donc :
+\[C(n) = n*n*n = \theta{(n^3)}\]
 
-\subsection{Algorithme moins naïf}
+\section{Algorithme moins naïf}
+\subsection{Pseudo-code}
 
 \begin{algorithm}[H]
   \Entree{T, n}
@@ -76,10 +79,13 @@ $C(n)$ = $n*n*n$ = $O(n^3)$
   }
   \caption{Moins naïf}
 \end{algorithm}
-\paragraph{Complexité}
-$C(n)$ = $n*n$ = $O(n^2)$
+\subsection{Complexité}
+L'algorithme se compose de deux boucles de parcours du tableau imbriquées. Sa
+complexité est donc :
+\[C(n) = n*n = \theta{(n^2)}\]
 
-\subsection{Algorithme diviser pour régner}
+\section{Algorithme diviser pour régner}
+\subsection{Pseudo-code}
 
 \begin{algorithm}[H]
   \Entree{T, k, l}
@@ -105,12 +111,22 @@ $C(n)$ = $n*n$ = $O(n^2)$
   }
   \caption{Diviser pour régner}
 \end{algorithm}
-\paragraph{Complexité}
-$C(n)$ = $2*C(n/2)+2*\frac{n}{2}$ = $\sum_{i=0}^{\log{n}} 2^i*\frac{n}{2^i}$ =
-$O(n \log{n})$
+\subsection{Complexité}
+Cet algorithme applique la méthode diviser pour régner. On peut écrire son
+équation de récurrence :
+\begin{align*}
+  C(n) & = 2*C(n/2) + 2*(n/2) \\
+       & = 2*C(n/2) + \theta{(n)}
+\end{align*}
+On applique ensuite le Master Theorem : \\
+$c = \log_2 2 = 1$ \\
+$f(n) = \theta{(n)}$ \\
+On est dans le cas 2 car $f(n) = \theta{(n^c)}$. Donc la complexité totale de
+l'algorithme est :
+\[ C(n) = \theta{(n \log n)} \]
 
-
-\subsection{Algorithme incrémental}
+\section{Algorithme incrémental}
+\subsection{Pseudo-code}
 
 \begin{algorithm}[H]
   \Entree{T, n}
@@ -153,9 +169,10 @@ $O(n \log{n})$
   }
   \caption{Incrémental}
 \end{algorithm}
-\paragraph{Complexité}
-$C(n)$ = $n$ = $O(n)$
-
+\subsection{Complexité}
+L'algorithme se compose de deux boucles de parcours du tableau imbriquées. Sa
+complexité est donc :
+\[C(n) = n = \theta{(n)}\]
 
 \newpage
 \section{Résulats expérimentaux}
